@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VideoCard from "./videoCard";
+import VideoCard, { AdVideoCard } from "./videoCard";
 import { YT_API_URL } from "../utils/constants";
 import { Link } from "react-router";
 
@@ -11,7 +11,6 @@ const VideoContainer = () => {
       const response = await fetch(YT_API_URL);
       const json = await response.json();
       setVideos(json.items);
-      console.log(json);
     } catch (error) {
       console.error("Failed to fetch videos:", error);
     }
@@ -24,8 +23,9 @@ const VideoContainer = () => {
   if (videos.length === 0) return null;
   return (
     <div className="flex flex-wrap px-3">
+      <AdVideoCard info={videos[0]} />
       {videos.map((video) => (
-        <Link to={"watch" + "?v=" + video.id}>
+        <Link key={video.id} to={"watch" + "?v=" + video.id}>
           <VideoCard info={video} />
         </Link>
       ))}

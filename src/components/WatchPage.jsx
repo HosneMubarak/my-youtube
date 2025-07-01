@@ -2,14 +2,17 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { closeMenue } from "../utils/appSlice";
 import { useSearchParams } from "react-router";
+import CommentContainer from "./CommentContainer";
 
 const WatchPage = () => {
   const dispatch = useDispatch();
   const [searchParam] = useSearchParams();
   const videoId = searchParam.get("v");
+
   useEffect(() => {
     dispatch(closeMenue());
   }, []);
+
   return (
     <div className="col-span-11 px-5">
       <iframe
@@ -22,6 +25,7 @@ const WatchPage = () => {
         allowFullScreen
         loading="lazy"
       />
+      <CommentContainer />
     </div>
   );
 };
